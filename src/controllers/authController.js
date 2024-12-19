@@ -2,7 +2,7 @@ import User from '../models/User.js'
 import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
 import {sendResponse} from '../utils/response.js'
-import {sendEmail} from '../utils/email.js'
+// import {sendEmail} from '../utils/email.js'
 
 const generateToken = (id) => {
   return jwt.sign({id}, process.env.JWT_SECRET, {
@@ -38,12 +38,12 @@ export const signUp = async (req, res) => {
     const verificationUrl = `${req.protocol}://${req.get('host')}/api/verify-email/${token}`
     console.log(`⚡ > signUp > verificationUrl--->`, verificationUrl)
 
-    await sendEmail({
-      to: user.email,
-      subject: 'Email Verification',
-      html: `<p>Verify your email by clicking on the following link:</p>
-             <a href="${verificationUrl}" target="_blank">Click Here To Verify</a>`,
-    })
+    // await sendEmail({
+    //   to: user.email,
+    //   subject: 'Email Verification',
+    //   html: `<p>Verify your email by clicking on the following link:</p>
+    //          <a href="${verificationUrl}" target="_blank">Click Here To Verify</a>`,
+    // })
 
     sendResponse(res, 201, true, 'User regisered successfully. Please check your email to verify your account.', {
       _id: user._id,
